@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <inlinedXMLSchema><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Q1="http://www.ibm.com/iib/msl/json">   
+    <xsd:import namespace="http://www.ibm.com/iib/msl/json" schemaLocation="/Contact.json"/>   
+    <xsd:element name="sf_data" type="Q1:Contact"/>   
+</xsd:schema>]]></inlinedXMLSchema>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var6"/>
+    <input derivedFrom="MB:JSON_schema_in_json_file" path="/Contact.json" var="var5"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var7"/>
+    <output derivedFrom="MB:JSON_schema_in_json_file" path="/Contact.json" var="var4"/>
+    <output path="db:table(/AUDITDB.dbm,AUDITDB,IIBADMIN,LOGTABLE)" var="LOGTABLE"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="retrieveContact_Mapping">
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var6/mb:msg(JSON,assembly,JSON,LocalEnvironment,Properties)" var="MessageAssembly1">
+            <cast derivedFrom="MB:JSON_TYPE" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}Contact" ref="var5" var="anyType"/>
+        </input>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var7/mb:msg(JSON,assembly,JSON,LocalEnvironment,Properties)" var="MessageAssembly">
+            <cast derivedFrom="MB:JSON_TYPE" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}Contact" ref="var4" var="anyType1"/>
+            <cast castType="userDefined" path="$MessageAssembly/LocalEnvironment/any" qualifier="sf_data" ref="var" var="any"/>
+        </output>
+        <output path="$LOGTABLE/db:insert(fn:true(),ID,SFID,NAME,DEPT,OWNER)" var="dbinsert"/>
+        <move>
+            <input path="$MessageAssembly1/Properties"/>
+            <output path="$MessageAssembly/Properties"/>
+        </move>
+        <move>
+            <input path="$MessageAssembly1/JSON/spath('Data',2)"/>
+            <output path="$MessageAssembly/JSON/spath('Data',2)"/>
+        </move>
+        <insert ref="dbinsert">
+            <input path="$MessageAssembly1/JSON/spath('Data',2)/Id" var="Id"/>
+            <input path="$MessageAssembly1/JSON/spath('Data',2)/Department" var="Department"/>
+            <input path="$MessageAssembly1/JSON/spath('Data',2)/Name" var="Name"/>
+            <input path="$MessageAssembly1/JSON/spath('Data',2)/OwnerId" var="OwnerId"/>
+            <output path="$dbinsert/."/>
+            <move>
+                <input path="$Id/."/>
+                <output path="SFID"/>
+            </move>
+            <move>
+                <input path="$Department/."/>
+                <output path="DEPT"/>
+            </move>
+            <move>
+                <input path="$Name/."/>
+                <output path="NAME"/>
+            </move>
+            <move>
+                <input path="$OwnerId/."/>
+                <output path="OWNER"/>
+            </move>
+        </insert>
+        <local>
+            <input path="$MessageAssembly1/JSON/spath('Data',2)"/>
+            <output path="$MessageAssembly/LocalEnvironment/sf_data"/>
+            <move automap="true">
+                <input path="Id"/>
+                <output path="Id"/>
+            </move>
+            <move automap="true">
+                <input path="AccountId"/>
+                <output path="AccountId"/>
+            </move>
+            <move automap="true">
+                <input path="AssistantName"/>
+                <output path="AssistantName"/>
+            </move>
+            <move automap="true">
+                <input path="AssistantPhone"/>
+                <output path="AssistantPhone"/>
+            </move>
+            <move automap="true">
+                <input path="Birthdate"/>
+                <output path="Birthdate"/>
+            </move>
+            <move automap="true">
+                <input path="CleanStatus"/>
+                <output path="CleanStatus"/>
+            </move>
+            <move automap="true">
+                <input path="CreatedById"/>
+                <output path="CreatedById"/>
+            </move>
+            <move automap="true">
+                <input path="CreatedDate"/>
+                <output path="CreatedDate"/>
+            </move>
+            <move automap="true">
+                <input path="Department"/>
+                <output path="Department"/>
+            </move>
+            <move automap="true">
+                <input path="Description"/>
+                <output path="Description"/>
+            </move>
+            <move automap="true">
+                <input path="Email"/>
+                <output path="Email"/>
+            </move>
+            <move automap="true">
+                <input path="EmailBouncedDate"/>
+                <output path="EmailBouncedDate"/>
+            </move>
+            <move automap="true">
+                <input path="EmailBouncedReason"/>
+                <output path="EmailBouncedReason"/>
+            </move>
+            <move automap="true">
+                <input path="Fax"/>
+                <output path="Fax"/>
+            </move>
+            <move automap="true">
+                <input path="FirstName"/>
+                <output path="FirstName"/>
+            </move>
+            <move automap="true">
+                <input path="HomePhone"/>
+                <output path="HomePhone"/>
+            </move>
+            <move automap="true">
+                <input path="IsDeleted"/>
+                <output path="IsDeleted"/>
+            </move>
+            <move automap="true">
+                <input path="IsEmailBounced"/>
+                <output path="IsEmailBounced"/>
+            </move>
+            <move automap="true">
+                <input path="Jigsaw"/>
+                <output path="Jigsaw"/>
+            </move>
+            <move automap="true">
+                <input path="JigsawContactId"/>
+                <output path="JigsawContactId"/>
+            </move>
+            <move automap="true">
+                <input path="Languages__c"/>
+                <output path="Languages__c"/>
+            </move>
+            <move automap="true">
+                <input path="LastActivityDate"/>
+                <output path="LastActivityDate"/>
+            </move>
+            <move automap="true">
+                <input path="LastCURequestDate"/>
+                <output path="LastCURequestDate"/>
+            </move>
+            <move automap="true">
+                <input path="LastCUUpdateDate"/>
+                <output path="LastCUUpdateDate"/>
+            </move>
+            <move automap="true">
+                <input path="LastModifiedById"/>
+                <output path="LastModifiedById"/>
+            </move>
+            <move automap="true">
+                <input path="LastModifiedDate"/>
+                <output path="LastModifiedDate"/>
+            </move>
+            <move automap="true">
+                <input path="LastName"/>
+                <output path="LastName"/>
+            </move>
+            <move automap="true">
+                <input path="LastReferencedDate"/>
+                <output path="LastReferencedDate"/>
+            </move>
+            <move automap="true">
+                <input path="LastViewedDate"/>
+                <output path="LastViewedDate"/>
+            </move>
+            <move automap="true">
+                <input path="LeadSource"/>
+                <output path="LeadSource"/>
+            </move>
+            <move automap="true">
+                <input path="Level__c"/>
+                <output path="Level__c"/>
+            </move>
+            <move automap="true">
+                <input path="MailingCity"/>
+                <output path="MailingCity"/>
+            </move>
+            <move automap="true">
+                <input path="MailingCountry"/>
+                <output path="MailingCountry"/>
+            </move>
+            <move automap="true">
+                <input path="MailingGeocodeAccuracy"/>
+                <output path="MailingGeocodeAccuracy"/>
+            </move>
+            <move automap="true">
+                <input path="MailingLatitude"/>
+                <output path="MailingLatitude"/>
+            </move>
+            <move automap="true">
+                <input path="MailingLongitude"/>
+                <output path="MailingLongitude"/>
+            </move>
+            <move automap="true">
+                <input path="MailingPostalCode"/>
+                <output path="MailingPostalCode"/>
+            </move>
+            <move automap="true">
+                <input path="MailingState"/>
+                <output path="MailingState"/>
+            </move>
+            <move automap="true">
+                <input path="MailingStreet"/>
+                <output path="MailingStreet"/>
+            </move>
+            <move automap="true">
+                <input path="MasterRecordId"/>
+                <output path="MasterRecordId"/>
+            </move>
+            <move automap="true">
+                <input path="MobilePhone"/>
+                <output path="MobilePhone"/>
+            </move>
+            <move automap="true">
+                <input path="Name"/>
+                <output path="Name"/>
+            </move>
+            <move automap="true">
+                <input path="OtherCity"/>
+                <output path="OtherCity"/>
+            </move>
+            <move automap="true">
+                <input path="OtherCountry"/>
+                <output path="OtherCountry"/>
+            </move>
+            <move automap="true">
+                <input path="OtherGeocodeAccuracy"/>
+                <output path="OtherGeocodeAccuracy"/>
+            </move>
+            <move automap="true">
+                <input path="OtherLatitude"/>
+                <output path="OtherLatitude"/>
+            </move>
+            <move automap="true">
+                <input path="OtherLongitude"/>
+                <output path="OtherLongitude"/>
+            </move>
+            <move automap="true">
+                <input path="OtherPhone"/>
+                <output path="OtherPhone"/>
+            </move>
+            <move automap="true">
+                <input path="OtherPostalCode"/>
+                <output path="OtherPostalCode"/>
+            </move>
+            <move automap="true">
+                <input path="OtherState"/>
+                <output path="OtherState"/>
+            </move>
+            <move automap="true">
+                <input path="OtherStreet"/>
+                <output path="OtherStreet"/>
+            </move>
+            <move automap="true">
+                <input path="OwnerId"/>
+                <output path="OwnerId"/>
+            </move>
+            <move automap="true">
+                <input path="Phone"/>
+                <output path="Phone"/>
+            </move>
+            <move automap="true">
+                <input path="PhotoUrl"/>
+                <output path="PhotoUrl"/>
+            </move>
+            <move automap="true">
+                <input path="ReportsToId"/>
+                <output path="ReportsToId"/>
+            </move>
+            <move automap="true">
+                <input path="Salutation"/>
+                <output path="Salutation"/>
+            </move>
+            <move automap="true">
+                <input path="SystemModstamp"/>
+                <output path="SystemModstamp"/>
+            </move>
+            <move automap="true">
+                <input path="Title"/>
+                <output path="Title"/>
+            </move>
+            <move automap="true">
+                <input path="attributes/type"/>
+                <output path="attributes/type"/>
+            </move>
+            <move automap="true">
+                <input path="attributes/url"/>
+                <output path="attributes/url"/>
+            </move>
+            <local>
+                <input path="MailingAddress"/>
+                <output path="MailingAddress"/>
+                <move automap="true">
+                    <input path="city"/>
+                    <output path="city"/>
+                </move>
+                <move automap="true">
+                    <input path="country"/>
+                    <output path="country"/>
+                </move>
+                <move automap="true">
+                    <input path="countryCode"/>
+                    <output path="countryCode"/>
+                </move>
+                <move automap="true">
+                    <input path="geocodeAccuracy"/>
+                    <output path="geocodeAccuracy"/>
+                </move>
+                <move automap="true">
+                    <input path="postalCode"/>
+                    <output path="postalCode"/>
+                </move>
+                <move automap="true">
+                    <input path="state"/>
+                    <output path="state"/>
+                </move>
+                <move automap="true">
+                    <input path="stateCode"/>
+                    <output path="stateCode"/>
+                </move>
+                <move automap="true">
+                    <input path="street"/>
+                    <output path="street"/>
+                </move>
+                <move automap="true">
+                    <input path="latitude"/>
+                    <output path="latitude"/>
+                </move>
+                <move automap="true">
+                    <input path="longitude"/>
+                    <output path="longitude"/>
+                </move>
+            </local>
+            <local>
+                <input path="OtherAddress"/>
+                <output path="OtherAddress"/>
+                <move automap="true">
+                    <input path="city"/>
+                    <output path="city"/>
+                </move>
+                <move automap="true">
+                    <input path="country"/>
+                    <output path="country"/>
+                </move>
+                <move automap="true">
+                    <input path="countryCode"/>
+                    <output path="countryCode"/>
+                </move>
+                <move automap="true">
+                    <input path="geocodeAccuracy"/>
+                    <output path="geocodeAccuracy"/>
+                </move>
+                <move automap="true">
+                    <input path="postalCode"/>
+                    <output path="postalCode"/>
+                </move>
+                <move automap="true">
+                    <input path="state"/>
+                    <output path="state"/>
+                </move>
+                <move automap="true">
+                    <input path="stateCode"/>
+                    <output path="stateCode"/>
+                </move>
+                <move automap="true">
+                    <input path="street"/>
+                    <output path="street"/>
+                </move>
+                <move automap="true">
+                    <input path="latitude"/>
+                    <output path="latitude"/>
+                </move>
+                <move automap="true">
+                    <input path="longitude"/>
+                    <output path="longitude"/>
+                </move>
+            </local>
+        </local>
+        <move>
+            <input path="$MessageAssembly1/LocalEnvironment/REST/Response"/>
+            <output path="$MessageAssembly/LocalEnvironment/REST/Response"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

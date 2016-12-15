@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<xmi:XMI xmlns:datamodelversion="http://www.ibm.com/com.ibm.datatools.core/model/data/1.8.0.0" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DB2Model="http:///com/ibm/db/models/db2/db2.ecore" xmlns:LUW="http:///com/ibm/db/models/db2/luw.ecore" xmlns:SQLAccessControl="http:///org/eclipse/datatools/modelbase/sql/accesscontrol.ecore" xmlns:SQLConstraints="http:///org/eclipse/datatools/modelbase/sql/constraints.ecore" xmlns:SQLDataTypes="http:///org/eclipse/datatools/modelbase/sql/datatypes.ecore">
+  <LUW:LUWDatabase xmi:id="_cWlP0MJ4EeaKJewtAcjJ4w" name="AUDITDB" vendor="DB2 UDB" version="V10.1" schemas="_cWlP08J4EeaKJewtAcjJ4w" authorizationIds="_cWlP48J4EeaKJewtAcjJ4w" federated="true">
+    <eAnnotations xmi:id="_cWlP0cJ4EeaKJewtAcjJ4w" source="ConnectionURI">
+      <details xmi:id="_cWlP0sJ4EeaKJewtAcjJ4w" key="ConnectionKey" value="AUDITDB"/>
+    </eAnnotations>
+  </LUW:LUWDatabase>
+  <DB2Model:DB2Schema xmi:id="_cWlP08J4EeaKJewtAcjJ4w" name="IIBADMIN" indices="_cWlP1MJ4EeaKJewtAcjJ4w" tables="_cWlP1sJ4EeaKJewtAcjJ4w" database="_cWlP0MJ4EeaKJewtAcjJ4w" owner="_cWlP48J4EeaKJewtAcjJ4w"/>
+  <LUW:LUWIndex xmi:id="_cWlP1MJ4EeaKJewtAcjJ4w" name="LOGTABLE" Schema="_cWlP08J4EeaKJewtAcjJ4w" fillFactor="10" unique="true" systemGenerated="true" table="_cWlP1sJ4EeaKJewtAcjJ4w" systemRequired="true">
+    <members xmi:id="_cWlP1cJ4EeaKJewtAcjJ4w" column="_cWlP18J4EeaKJewtAcjJ4w"/>
+  </LUW:LUWIndex>
+  <LUW:LUWTable xmi:id="_cWlP1sJ4EeaKJewtAcjJ4w" name="LOGTABLE" schema="_cWlP08J4EeaKJewtAcjJ4w" index="_cWlP1MJ4EeaKJewtAcjJ4w" partitionMode=" ">
+    <columns xsi:type="LUW:LUWColumn" xmi:id="_cWlP18J4EeaKJewtAcjJ4w" name="ID" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_cWlP2MJ4EeaKJewtAcjJ4w" name="INTEGER" primitiveType="INTEGER"/>
+      <identitySpecifier xsi:type="DB2Model:DB2IdentitySpecifier" xmi:id="_cWlP2cJ4EeaKJewtAcjJ4w" startValue="1" increment="1" minimum="1" maximum="2147483647" cache="1"/>
+    </columns>
+    <columns xsi:type="LUW:LUWColumn" xmi:id="_cWlP2sJ4EeaKJewtAcjJ4w" name="SFID">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_cWlP28J4EeaKJewtAcjJ4w" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="30"/>
+    </columns>
+    <columns xsi:type="LUW:LUWColumn" xmi:id="_cWlP3MJ4EeaKJewtAcjJ4w" name="NAME">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_cWlP3cJ4EeaKJewtAcjJ4w" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="100"/>
+    </columns>
+    <columns xsi:type="LUW:LUWColumn" xmi:id="_cWlP3sJ4EeaKJewtAcjJ4w" name="DEPT">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_cWlP38J4EeaKJewtAcjJ4w" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="10"/>
+    </columns>
+    <columns xsi:type="LUW:LUWColumn" xmi:id="_cWlP4MJ4EeaKJewtAcjJ4w" name="OWNER" nullable="false">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_cWlP4cJ4EeaKJewtAcjJ4w" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="30"/>
+    </columns>
+    <constraints xsi:type="SQLConstraints:PrimaryKey" xmi:id="_cWlP4sJ4EeaKJewtAcjJ4w" name="LOGTABLE" members="_cWlP18J4EeaKJewtAcjJ4w"/>
+  </LUW:LUWTable>
+  <SQLAccessControl:User xmi:id="_cWlP48J4EeaKJewtAcjJ4w" name="IIBADMIN" description="" ownedSchema="_cWlP08J4EeaKJewtAcjJ4w" Database="_cWlP0MJ4EeaKJewtAcjJ4w"/>
+</xmi:XMI>
